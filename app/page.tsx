@@ -1,24 +1,33 @@
-import Image from "next/image";
-import Form from 'next/form'
-
 export default async function Home() {
-  const apiOpenWeather=process.env.API_OPENWEATHER;
+  const apiOpenWeather = process.env.API_OPENWEATHER;
 
   const data = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=52.2297&lon=21.0122&units=metric&lang=en&appid=${apiOpenWeather}`,
+    `https://api.openweathermap.org/data/2.5/weather?q=paris&units=metric&lang=fr&appid=${apiOpenWeather}`,
   );
+
+  if (!data.ok) {
+    return "There was an error with the weather server";
+  }
+
   const weather = await data.json();
+
   return (
     <div>
-      <h5>
-        <b>This is a test</b>
-      </h5>
-      <p>{weather.main.temp} °C</p>
+      <h1>
+        <b>Meteo voyage</b>
+      </h1>
+      <div>
+        <p>{weather.main.temp} °C</p>
+        <p>Ressenti {weather.main.feels_like} °C</p>
+        <p>{weather.weather[0].description}</p>
+        <p>{weather.main.humidity}% humidité</p>
+        <p>Vitesse du vent : {weather.wind.speed}</p>
+      </div>
 
-      <form action="/search">
+      <form id="form">
         <label>Veuillez entre la ville</label>
-        <input name="city"/>
-        <button type="submit">Submit</button>
+        <input name="city" required />
+        <button type="submit">Rechercher</button>
       </form>
     </div>
   );
