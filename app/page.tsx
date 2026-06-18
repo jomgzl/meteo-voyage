@@ -1,3 +1,5 @@
+import Form from './form'
+
 export default async function Home() {
   const apiOpenWeather = process.env.API_OPENWEATHER;
 
@@ -15,6 +17,7 @@ export default async function Home() {
     <div>
       <h1>
         <b>Meteo voyage</b>
+        <Form />
       </h1>
       <div>
         <p>{weather.main.temp} °C</p>
