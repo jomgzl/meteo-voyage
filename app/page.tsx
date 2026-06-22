@@ -1,5 +1,4 @@
-import Form from './components/form'
-import ViewWeather from "./components/viewWeather";
+import Form from "./components/form";
 
 export default async function Home() {
   const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
@@ -16,24 +15,26 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>
-        Meteo voyage
-      </h1>
+      <div className="text-center mt-6">
+        <h1 className="text-2xl/7 font-bold text-sky-600 sm:truncate sm:text-3xl sm:tracking-tight">
+          Meteo voyage
+        </h1>
+      </div>
       <Form />
       {/* <ViewWeather /> */}
-      {/* <div>
-        <p>{weather.main.temp} °C</p>
-        <p>Ressenti {weather.main.feels_like} °C</p>
+      <div>
+        <p>{Math.round(weather.main.temp)} °C</p>
+        <p>Ressenti {Math.round(weather.main.feels_like)} °C</p>
         <p>{weather.weather[0].description}</p>
         <p>{weather.main.humidity}% humidité</p>
-        <p>Vitesse du vent : {weather.wind.speed}</p>
+        <p>Vitesse du vent : {Math.round(weather.wind.speed)}</p>
       </div>
 
       <form id="form">
         <label>Veuillez entre la ville</label>
         <input name="city" required />
         <button type="submit">Rechercher</button>
-      </form> */}
+      </form>
     </div>
   );
 }
