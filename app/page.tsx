@@ -1,7 +1,8 @@
-import Form from './form'
+import Form from './components/form'
+import ViewWeather from "./components/viewWeather";
 
 export default async function Home() {
-  const apiOpenWeather = process.env.API_OPENWEATHER;
+  const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
 
   const data = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=paris&units=metric&lang=fr&appid=${apiOpenWeather}`,
@@ -16,10 +17,11 @@ export default async function Home() {
   return (
     <div>
       <h1>
-        <b>Meteo voyage</b>
-        <Form />
+        Meteo voyage
       </h1>
-      <div>
+      <Form />
+      {/* <ViewWeather /> */}
+      {/* <div>
         <p>{weather.main.temp} °C</p>
         <p>Ressenti {weather.main.feels_like} °C</p>
         <p>{weather.weather[0].description}</p>
@@ -31,7 +33,7 @@ export default async function Home() {
         <label>Veuillez entre la ville</label>
         <input name="city" required />
         <button type="submit">Rechercher</button>
-      </form>
+      </form> */}
     </div>
   );
 }
