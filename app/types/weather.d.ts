@@ -3,7 +3,7 @@ interface IWeatherCondition {
 }
 
 export interface IWeather {
-  main: { temp: number; feels_like: string; humidity: number };
+  main: { temp: number; feels_like: number; humidity: number };
   wind: { speed: number };
   weather: IWeatherCondition[];
 }
