@@ -1,5 +1,6 @@
 import Form from "./components/form";
 import Image from "next/image";
+import ViewWeather from "./components/viewWeather";
 
 export default async function Home() {
   const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
@@ -34,13 +35,14 @@ export default async function Home() {
     >
       <path
         d="M12 3V21M9.99995 4L12 6L14 4M9.99995 20L12 18L14 20M4.23218 7.5L19.8206 16.5M4.11133 9.50885L6.57017 8.85L5.91133 6.39115M18.141 17.6089L17.4821 15.15L19.941 14.4912M19.8205 7.5L4.232 16.5M18.1413 6.39115L17.4825 8.85L19.9413 9.50885M4.11166 14.4911L6.57051 15.15L5.91166 17.6088"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
   //  src={`{${weather.weather[0].main} === "Clouds" ? "/mist.svg" : "/rain.svg"`}
+  return <ViewWeather />;
   return (
     <div className="z-40">
       {backgroundImage}

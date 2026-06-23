@@ -1,48 +1,42 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-interface weatherCondition {
-  description: string;
-}
-
-type Response = {
-  data: {
-    weather: {
-      main: { temp: number; feelsLike: string; humidity: number };
-      wind: { speed: number };
-      weather: weatherCondition[];
-    };
-  };
-};
+import { IWeather } from "@/app/types/weather";
+import ErrorComponent from "@/app/components/error";
+import { IError } from "@/app/types/error";
 
 export default function ViewWeather() {
-  const [data, setData] = useState({});
+  const [weather, setWeather] = useState<IWeather>();
+  const [error, setError] = useState<IError>();
 
   useEffect(() => {
     fetch("/api/openWeatherApi")
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) return response.json();
+        else throw new Error("E");
+      })
       .then((data) => {
-        setData(data);
         console.log("In fetch:", data);
+        setWeather(data.weather as IWeather);
+      })
+      .catch(() => {
+        setError({ errorMessage: "Erreur de récupération des données" });
       });
   }, []);
 
-  function WeatherData(data: Response) {
-    console.log("In WeatherData function:", data);
-    if (!data) {
-      return (
-        <div>
-          <p>{data.weather.main.temp} °C</p>
-          <p>Ressenti {data.weather.main.feels_like} °C</p>
-          <p>{data.weather.weather[0].description}</p>
-          <p>{data.weather.main.humidity}% humidité</p>
-          <p>Vitesse du vent : {data.weather.wind.speed}</p>
-          <p>Test</p>
-        </div>
-      );
-    }
+  console.log("In WeatherData function:", weather);
+  if (weather) {
+    return (
+      <div>
+        <p>{weather.main.temp} °C</p>
+        <p>Ressenti {weather.main.feels_like} °C</p>
+        <p>{weather.weather[0].description}</p>
+        <p>{weather.main.humidity}% humidité</p>
+        <p>Vitesse du vent : {weather.wind.speed}</p>
+        <p>Test</p>
+      </div>
+    );
   }
-
-  return <WeatherData data={data} />;
+  if (error) return <ErrorComponent errorMessage={error.errorMessage} />;
+  return null;
 }

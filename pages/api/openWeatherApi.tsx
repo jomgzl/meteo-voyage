@@ -26,10 +26,12 @@ export default async function getOpenWeatherData(
 
   const weather = await data.json();
 
-   console.log(weather);
+  console.log("Still in the API", weather);
 
   if (!data.ok) {
-    return "There was an error with the weather server";
+    return res
+      .status(500)
+      .json({ message: "There was an error with the weather server" });
   }
 
   res.status(200).json({ weather: weather });
