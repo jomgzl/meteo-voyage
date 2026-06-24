@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { IWeather } from "@/app/types/weather";
 import ErrorComponent from "@/app/components/error";
 import { IError } from "@/app/types/error";
+import WeatherIcon from "@/app/components/weatherIcon";
 
 export default function ViewWeather() {
   const [weather, setWeather] = useState<IWeather>();
@@ -14,7 +15,9 @@ export default function ViewWeather() {
       .then((response) => {
         if (response.ok) return response.json();
         else {
-          throw new Error("Erreur de récupération de données, nous travaillons pour régler le problème.");
+          throw new Error(
+            "Erreur de récupération de données, nous travaillons pour régler le problème.",
+          );
         }
       })
       .then((data) => {
@@ -26,24 +29,6 @@ export default function ViewWeather() {
         console.log(e);
       });
   }, []);
-
-  const icon = (
-    <svg
-      className="stroke-white"
-      width="25px"
-      height="25px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M12 3V21M9.99995 4L12 6L14 4M9.99995 20L12 18L14 20M4.23218 7.5L19.8206 16.5M4.11133 9.50885L6.57017 8.85L5.91133 6.39115M18.141 17.6089L17.4821 15.15L19.941 14.4912M19.8205 7.5L4.232 16.5M18.1413 6.39115L17.4825 8.85L19.9413 9.50885M4.11166 14.4911L6.57051 15.15L5.91166 17.6088"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
 
   console.log("In WeatherData function:", weather);
   if (weather) {
@@ -63,7 +48,7 @@ export default function ViewWeather() {
               <p>Ressenti: {Math.round(weather.main.feels_like)} °C</p>
             </div>
             <div className="bg-amber-800 border border-amber-500 rounded-lg p-2 flex gap-1 fill-red-200">
-              {icon}
+              <WeatherIcon { ...weather }/>
               <p>{weather.weather[0].description}</p>
             </div>
             <div className="bg-amber-800 border border-amber-500 rounded-lg p-2">

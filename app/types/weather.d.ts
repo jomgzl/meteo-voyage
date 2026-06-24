@@ -1,4 +1,6 @@
 interface IWeatherCondition {
+  id :number;
+  main :string;
   description: string;
 }
 
