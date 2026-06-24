@@ -13,18 +13,19 @@ export default function ViewWeather() {
     fetch("/api/openWeatherApi")
       .then((response) => {
         if (response.ok) return response.json();
-        else throw new Error("E");
+        else {
+          throw new Error("Erreur de récupération de données, nous travaillons pour régler le problème.");
+        }
       })
       .then((data) => {
         console.log("In fetch:", data);
         setWeather(data.weather as IWeather);
       })
-      .catch(() => {
-        setError({ errorMessage: "Erreur de récupération des données" });
+      .catch((e) => {
+        setError({ errorMessage: e.message });
+        console.log(e);
       });
   }, []);
-
-
 
   const icon = (
     <svg
@@ -53,7 +54,6 @@ export default function ViewWeather() {
             Meteo voyage
           </h1>
         </div>
-        ∑
         <div className="grid h-48 place-content-center text-white">
           <div className="grid grid-cols-3 gap-4 md:grid-cols-5 md:justify-items-center md:gap-0">
             <div className="bg-amber-800 border border-amber-500 rounded-lg p-2">
