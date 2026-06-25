@@ -13,7 +13,6 @@ export default async function Home() {
     />
   );
 
-  //  src={`{${weather.weather[0].main} === "Clouds" ? "/mist.svg" : "/rain.svg"`}
   return (
     <div>
       {backgroundImage}

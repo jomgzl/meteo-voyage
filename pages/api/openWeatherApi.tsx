@@ -6,10 +6,11 @@ export default async function getOpenWeatherData(
 ) {
   const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
 
-  console.log("I am in the API, this is what I received from the client:", req.body);
+  const city = req.body.name;
+
 
   const data = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=paris&units=metric&lang=fr&appid=${apiOpenWeather}`,
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiOpenWeather}`,
   );
 
   const weather = await data.json();
