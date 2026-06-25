@@ -2,16 +2,25 @@
 
 import { useState, useEffect } from "react";
 import { IWeather } from "@/app/types/weather";
-import ErrorComponent from "@/app/components/error";
+import { ICity } from "@/app/types/city";
 import { IError } from "@/app/types/error";
+import ErrorComponent from "@/app/components/error";
 import WeatherIcon from "@/app/components/weatherIcon";
 
-export default function ViewWeather() {
+export default function ViewWeather({ name }: ICity) {
   const [weather, setWeather] = useState<IWeather>();
   const [error, setError] = useState<IError>();
+  console.log("This is what I received from the user", name);
 
   useEffect(() => {
-    fetch("/api/openWeatherApi")
+    fetch("/api/openWeatherApi", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: name }),
+    })
       .then((response) => {
         if (response.ok) return response.json();
         else {
@@ -21,16 +30,13 @@ export default function ViewWeather() {
         }
       })
       .then((data) => {
-        console.log("In fetch:", data);
         setWeather(data.weather as IWeather);
       })
       .catch((e) => {
         setError({ errorMessage: e.message });
-        console.log(e);
       });
-  }, []);
+  }, [name]);
 
-  console.log("In WeatherData function:", weather);
   if (weather) {
     return (
       <div className="z-40">
@@ -48,7 +54,7 @@ export default function ViewWeather() {
               <p>Ressenti: {Math.round(weather.main.feels_like)} °C</p>
             </div>
             <div className="bg-amber-800 border border-amber-500 rounded-lg p-2 flex gap-1 fill-red-200">
-              <WeatherIcon { ...weather }/>
+              <WeatherIcon {...weather.weather[0]} />
               <p>{weather.weather[0].description}</p>
             </div>
             <div className="bg-amber-800 border border-amber-500 rounded-lg p-2">
@@ -59,11 +65,6 @@ export default function ViewWeather() {
             </div>
           </div>
         </div>
-        {/* <form id="form">
-              <label>Veuillez entre la ville</label>
-              <input name="city" required />
-              <button type="submit">Rechercher</button>
-            </form> */}
       </div>
     );
   }

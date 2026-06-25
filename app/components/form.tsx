@@ -1,27 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import City from "@/app/types/city";
 import ViewWeather from "./viewWeather";
 
-type City = {
-  city: string;
-};
-
 export default function Form() {
-  const [city, setCity] = useState("");
+  const [cityUser, setCityUser] = useState("");
 
   function handleSubmission(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    setCity(e.target.city.value);
+    setCityUser(e.target.city.value);
   }
 
   return (
     <div>
       <form onSubmit={handleSubmission}>
-        <input name="city" required />
+        <div>
+          <input type="text" name="city" placeholder="Paris" required />
+        </div>
         <button type="submit">Rechercher</button>
       </form>
-      <ViewWeather city={city} />
+      {!!cityUser && <ViewWeather name={cityUser} />}
     </div>
   );
 }
