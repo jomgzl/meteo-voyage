@@ -1,23 +1,15 @@
-import Form from "./components/form";
 import Image from "next/image";
-import ViewWeather from "./components/viewWeather";
+import WeatherApp from "@/app/components/weatherApp";
 
 export default async function Home() {
-
-  const backgroundImage = (
-    <Image
-      src="/weather-background.jpeg"
-      className="-z-10"
-      fill={true}
-      alt="Background image of the sky"
-    />
-  );
+  const backgroundcolor = {
+    background:
+      "linear-gradient(180deg, #eaf2fb 0%, #f6fafd 46%, #ffffff 100%)",
+  };
 
   return (
-    <div>
-      {backgroundImage}
-      <Form />
-      {/* <ViewWeather /> */}
+    <div style={backgroundcolor}>
+      <WeatherApp />
     </div>
   );
 }
