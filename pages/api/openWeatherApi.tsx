@@ -4,22 +4,26 @@ export default async function getOpenWeatherData(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
+  try {
+    const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
 
-  const city = req.body.name;
+    const city = req.body.name;
 
+    const data = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiOpenWeather}`,
+    );
 
-  const data = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiOpenWeather}`,
-  );
+    const weather = await data.json();
 
-  const weather = await data.json();
+    if (!data.ok) {
+      return res
+        .status(data.status)
+        .json({ message: "There was an error with the weather server" });
+    }
 
-  if (!data.ok) {
-    return res
-      .status(500)
-      .json({ message: "There was an error with the weather server" });
+    res.status(200).json({ weather: weather });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send({});
   }
-
-  res.status(200).json({ weather: weather });
 }

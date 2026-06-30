@@ -19,6 +19,8 @@ export default function ViewWeather({ name }: ICity) {
   console.log("This is what I received from the user", name);
 
   useEffect(() => {
+    setWeather(undefined);
+    setError(undefined);
     fetch("/api/openWeatherApi", {
       method: "POST",
       headers: {
@@ -30,11 +32,15 @@ export default function ViewWeather({ name }: ICity) {
       .then((response) => {
         console.log(response);
         if (response.ok) return response.json();
-        else if (response.status === 500) {
+        else if (response.status === 404) {
           throw new Error("Ville introuvable.");
+        } else if (response.status) {
+          throw new Error(
+            "Une erreur interne s'est produite, nous travaillons pour régler le problème.",
+          );
         } else {
           throw new Error(
-            "Erreur de récupération de données, nous travaillons pour régler le problème.",
+            "Erreur de récupération de données, vérifiez votre connexion internet.",
           );
         }
       })
@@ -48,27 +54,6 @@ export default function ViewWeather({ name }: ICity) {
 
   if (weather) {
     return (
-      // <div className="grid h-48 place-content-center text-white">
-      //   <div className="grid grid-cols-3 gap-4 md:grid-cols-5 md:justify-items-center md:gap-0">
-      //     <div className="bg-amber-800 border border-amber-500 rounded-lg p-2">
-      //       <p>{Math.round(weather.main.temp)} °C</p>
-      //     </div>
-      //     <div className="bg-amber-800 border border-amber-500 rounded-lg p-2">
-      //       <p>Ressenti: {Math.round(weather.main.feels_like)} °C</p>
-      //     </div>
-      //     <div className="bg-amber-800 border border-amber-500 rounded-lg p-2 flex gap-1 fill-red-200">
-      //       <WeatherIcon {...weather.weather[0]} />
-      //       <p>{weather.weather[0].description}</p>
-      //     </div>
-      //     <div className="bg-amber-800 border border-amber-500 rounded-lg p-2">
-      //       <p>{weather.main.humidity}% humidité</p>
-      //     </div>
-      //     <div className="bg-amber-800 border border-amber-500 rounded-lg p-2">
-      //       <p>Vitesse du vent : {Math.round(weather.wind.speed)}</p>
-      //     </div>
-      //   </div>
-      // </div>
-
       <Card
         variant="outlined"
         className={`${styles.cardStyle}`}
