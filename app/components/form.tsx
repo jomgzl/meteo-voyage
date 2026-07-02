@@ -15,11 +15,6 @@ export default function Form({ setCityUser }: IProps) {
   function handleSubmission(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setCityUser(e.target.city.value);
-    // resetInput();
-  }
-
-  function resetInput() {
-    setCityUser("");
   }
 
   return (

@@ -16,7 +16,6 @@ import styles from "./viewWeather.module.css";
 export default function ViewWeather({ name }: ICity) {
   const [weather, setWeather] = useState<IWeather>();
   const [error, setError] = useState<IError>();
-  console.log("This is what I received from the user", name);
 
   useEffect(() => {
     setWeather(undefined);
@@ -33,7 +32,9 @@ export default function ViewWeather({ name }: ICity) {
         console.log(response);
         if (response.ok) return response.json();
         else if (response.status === 404) {
-          throw new Error("Ville introuvable.");
+          throw new Error("Ville introuvable", {
+            cause: `Aucune ville ne correspond à «${name}»`,
+          });
         } else if (response.status) {
           throw new Error(
             "Une erreur interne s'est produite, nous travaillons pour régler le problème.",
@@ -48,7 +49,7 @@ export default function ViewWeather({ name }: ICity) {
         setWeather(data.weather as IWeather);
       })
       .catch((e) => {
-        setError({ errorMessage: e.message });
+        setError({ errorMessage: e.message, additionalDetails: e.cause });
       });
   }, [name]);
 
@@ -56,8 +57,8 @@ export default function ViewWeather({ name }: ICity) {
     return (
       <Card
         variant="outlined"
-        className={`${styles.cardStyle}`}
         sx={{ maxWidth: 620, p: 4 }}
+        className={`${styles.cardStyle}`}
       >
         <Box>
           <Stack
@@ -65,7 +66,7 @@ export default function ViewWeather({ name }: ICity) {
             spacing={4}
             sx={{ justifyContent: "space-between" }}
           >
-            <Typography variant="h5">
+            <Typography variant="h5" sx={{ color: "#1b2530" }}>
               {name[0].toUpperCase() + name.slice(1)}
             </Typography>
             <WeatherIcon {...weather.weather[0]} />
@@ -74,7 +75,7 @@ export default function ViewWeather({ name }: ICity) {
 
         <Box>
           <Stack direction="row" spacing={2} sx={{ alignItems: "flex-end" }}>
-            <Typography variant="h1">
+            <Typography variant="h1" sx={{ color: "#15202b" }}>
               {Math.round(weather.main.temp)}°c
             </Typography>
             <Typography variant="h6" sx={{ pb: 3, color: "#41566d" }}>
@@ -102,7 +103,7 @@ export default function ViewWeather({ name }: ICity) {
               <Typography sx={{ fontSize: 14, color: "#8a95a3" }}>
                 Ressenti
               </Typography>
-              <Typography sx={{ fontSize: 20, fontWeight: "bold" }}>
+              <Typography sx={{ fontSize: 20, fontWeight: "bold", color:"#1b2530" }}>
                 {Math.round(weather.main.feels_like)}°C
               </Typography>
             </Stack>
@@ -110,7 +111,7 @@ export default function ViewWeather({ name }: ICity) {
               <Typography sx={{ fontSize: 14, color: "#8a95a3" }}>
                 Humidité
               </Typography>{" "}
-              <Typography sx={{ fontSize: 20, fontWeight: "bold" }}>
+              <Typography sx={{ fontSize: 20, fontWeight: "bold", color:"#1b2530" }}>
                 {" "}
                 {weather.main.humidity}%
               </Typography>
@@ -119,7 +120,7 @@ export default function ViewWeather({ name }: ICity) {
               <Typography sx={{ fontSize: 14, color: "#8a95a3" }}>
                 Vent
               </Typography>{" "}
-              <Typography sx={{ fontSize: 20, fontWeight: "bold" }}>
+              <Typography sx={{ fontSize: 20, fontWeight: "bold", color:"#1b2530" }}>
                 {" "}
                 {Math.round(weather.wind.speed)} km/h
               </Typography>
@@ -129,6 +130,29 @@ export default function ViewWeather({ name }: ICity) {
       </Card>
     );
   }
-  if (error) return <ErrorComponent errorMessage={error.errorMessage} />;
+  if (error)
+    return (
+      <Card
+        sx={{
+          backgroundColor: "transparent",
+          boxShadow: "none",
+          maxWidth: 620,
+          minHeight: 200,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          <Typography variant="h6">
+            <ErrorComponent
+              errorMessage={error.errorMessage}
+              additionalDetails={error.additionalDetails}
+            />
+          </Typography>
+        </Box>
+      </Card>
+    );
   return null;
 }

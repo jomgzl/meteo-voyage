@@ -1,12 +1,9 @@
-import { IError } from "../types/error";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
-interface IProps extends IError {}
-
-export default function Error({ errorMessage, additionalDetails }: IProps) {
+export default function IntroductionScreen() {
   return (
     <div>
       <Box>
@@ -18,21 +15,21 @@ export default function Error({ errorMessage, additionalDetails }: IProps) {
             textAlign: "center",
           }}
         >
-          <Box sx= {{display: "flex", justifyContent:"center", backgroundColor: "#e6ebf1", width:60, height: 60, borderRadius: "100%"}}>
+          <Box>
             {" "}
             <Image
-              src="/info-circle.svg"
-              width={25}
-              height={25}
-              alt="Info circle icon"
+              src="/location-pin.svg"
+              width={60}
+              height={60}
+              alt="Location pin icon"
             />
           </Box>
 
           <Typography variant="h5" sx={{ color: "#1b2530" }}>
-            {errorMessage}
+            Quelle destination ?
           </Typography>
           <Typography variant="body1" sx={{ color: "#41566d" }}>
-            {additionalDetails}
+            Recherchez une ville pour afficher la météo qu'il y fait en ce moment.
           </Typography>
         </Stack>
       </Box>
