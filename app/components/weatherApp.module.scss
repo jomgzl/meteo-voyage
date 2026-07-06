@@ -1,0 +1,9 @@
+.test1 {
+   display: list-item;
+   list-style-type: disc;
+   list-style-position: inside;
+}
+
+.test1::marker {
+    color: #2e6cae;
+}

@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import City, { ICity } from "@/app/types/city";
-import ViewWeather from "./viewWeather";
+import { ICity } from "@/app/types/city";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "./form.module.scss";
@@ -11,7 +9,7 @@ interface IProps {
   setCityUser: (name: ICity["name"]) => void;
 }
 
-export default function Form({ setCityUser }: IProps) {
+export default function Form({ setCityUser, className }: IProps) {
   function handleSubmission(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setCityUser(e.target.city.value);

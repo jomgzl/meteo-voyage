@@ -11,13 +11,14 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import styles from "./viewWeather.module.css";
+import Button from "@mui/material/Button";
+import styles from "./viewWeather.module.scss";
 
 export default function ViewWeather({ name }: ICity) {
   const [weather, setWeather] = useState<IWeather>();
   const [error, setError] = useState<IError>();
 
-  useEffect(() => {
+  const fetchWeather = () => {
     setWeather(undefined);
     setError(undefined);
     fetch("/api/openWeatherApi", {
@@ -33,15 +34,21 @@ export default function ViewWeather({ name }: ICity) {
         if (response.ok) return response.json();
         else if (response.status === 404) {
           throw new Error("Ville introuvable", {
-            cause: `Aucune ville ne correspond à «${name}»`,
+            cause: "API error",
           });
         } else if (response.status) {
           throw new Error(
             "Une erreur interne s'est produite, nous travaillons pour régler le problème.",
+            {
+              cause: "API error",
+            },
           );
         } else {
           throw new Error(
             "Erreur de récupération de données, vérifiez votre connexion internet.",
+            {
+              cause: "API error",
+            },
           );
         }
       })
@@ -49,15 +56,28 @@ export default function ViewWeather({ name }: ICity) {
         setWeather(data.weather as IWeather);
       })
       .catch((e) => {
-        setError({ errorMessage: e.message, additionalDetails: e.cause });
+        if (e.cause === "API error") {
+          setError({ errorMessage: e.message, additionalDetails: e.cause });
+        } else {
+          setError({
+            errorMessage:
+              "Erreur de récupération de données, vérifiez votre connexion internet.",
+          });
+        }
       });
-  }, [name]);
+  };
+
+  useEffect(fetchWeather, [name]);
 
   if (weather) {
     return (
       <Card
         variant="outlined"
-        sx={{ maxWidth: 620, p: 4 }}
+        sx={{
+          minWidth: { xs: "93vw", sm:"78vw", md: 620 },
+          maxWidth: 620,
+          p: { sm: 4 },
+        }}
         className={`${styles.cardStyle}`}
       >
         <Box>
@@ -103,7 +123,9 @@ export default function ViewWeather({ name }: ICity) {
               <Typography sx={{ fontSize: 14, color: "#8a95a3" }}>
                 Ressenti
               </Typography>
-              <Typography sx={{ fontSize: 20, fontWeight: "bold", color:"#1b2530" }}>
+              <Typography
+                sx={{ fontSize: 20, fontWeight: "bold", color: "#1b2530" }}
+              >
                 {Math.round(weather.main.feels_like)}°C
               </Typography>
             </Stack>
@@ -111,7 +133,9 @@ export default function ViewWeather({ name }: ICity) {
               <Typography sx={{ fontSize: 14, color: "#8a95a3" }}>
                 Humidité
               </Typography>{" "}
-              <Typography sx={{ fontSize: 20, fontWeight: "bold", color:"#1b2530" }}>
+              <Typography
+                sx={{ fontSize: 20, fontWeight: "bold", color: "#1b2530" }}
+              >
                 {" "}
                 {weather.main.humidity}%
               </Typography>
@@ -120,7 +144,9 @@ export default function ViewWeather({ name }: ICity) {
               <Typography sx={{ fontSize: 14, color: "#8a95a3" }}>
                 Vent
               </Typography>{" "}
-              <Typography sx={{ fontSize: 20, fontWeight: "bold", color:"#1b2530" }}>
+              <Typography
+                sx={{ fontSize: 20, fontWeight: "bold", color: "#1b2530" }}
+              >
                 {" "}
                 {Math.round(weather.wind.speed)} km/h
               </Typography>
@@ -152,6 +178,10 @@ export default function ViewWeather({ name }: ICity) {
             />
           </Typography>
         </Box>
+        {error.errorMessage ===
+          "Erreur de récupération de données, vérifiez votre connexion internet." && (
+          <Button onClick={fetchWeather}>Réessayer</Button>
+        )}
       </Card>
     );
   return null;
