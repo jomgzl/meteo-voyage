@@ -74,7 +74,7 @@ export default function ViewWeather({ name }: ICity) {
       <Card
         variant="outlined"
         sx={{
-          minWidth: { xs: "93vw", sm:"78vw", md: 620 },
+          minWidth: { xs: "93vw", sm: "96vw", md: 620 },
           maxWidth: 620,
           p: { sm: 4 },
         }}
@@ -164,6 +164,8 @@ export default function ViewWeather({ name }: ICity) {
           boxShadow: "none",
           maxWidth: 620,
           minHeight: 200,
+          minWidth: { xs: "93vw", sm: "96vw", md: 620 },
+          p: { sm: 4 },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",

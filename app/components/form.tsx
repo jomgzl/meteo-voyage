@@ -9,7 +9,7 @@ interface IProps {
   setCityUser: (name: ICity["name"]) => void;
 }
 
-export default function Form({ setCityUser, className }: IProps) {
+export default function Form({ setCityUser }: IProps) {
   function handleSubmission(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setCityUser(e.target.city.value);

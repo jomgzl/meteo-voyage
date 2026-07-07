@@ -15,7 +15,7 @@ export default function WeatherApp() {
         <div className="ml-5 sm:ml-auto sm:mr-auto">
           <h1 className= {`${styles.test1} text-[22px] text-[#15202b]`}>Meteo Voyage</h1>
         </div>
-        <div className="ml-5 mr-5 mt-5 sm:ml-auto sm:mr-auto">
+        <div className="ml-5 mr-5 mt-5 sm:ml-auto sm:mr-auto sm:w-auto">
           <Form setCityUser={setCityUser} />
         </div>
       </div>
