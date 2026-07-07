@@ -1,7 +1,6 @@
 "use client";
 
 import { ICity } from "@/app/types/city";
-import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "./form.module.scss";
 
@@ -29,9 +28,7 @@ export default function Form({ setCityUser }: IProps) {
             className="placeholder:italic"
             required
           />
-          {/* <TextField required id="outlined-basic" variant="outlined" defaultValue="Rechercher une ville..." /> */}
         </div>
-        {/* <button type="submit">Rechercher</button> */}
       </form>
     </div>
   );
