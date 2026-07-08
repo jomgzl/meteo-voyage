@@ -21,6 +21,8 @@ export default async function getOpenWeatherData(
         .json({ message: "There was an error with the weather server" });
     }
 
+    console.log(weather);
+
     res.status(200).json({ weather: weather });
   } catch (e) {
     console.error(e);

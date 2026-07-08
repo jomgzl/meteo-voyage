@@ -1,9 +1,9 @@
-.test1 {
+.bullet {
    display: list-item;
    list-style-type: disc;
    list-style-position: inside;
 }
 
-.test1::marker {
+.bullet::marker {
     color: #2e6cae;
 }

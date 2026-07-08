@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import styles from "./viewWeather.module.scss";
+import Search from "@/app/components/searchComponent";
 
 export default function ViewWeather({ name }: ICity) {
   const [weather, setWeather] = useState<IWeather>();
@@ -74,12 +75,13 @@ export default function ViewWeather({ name }: ICity) {
       <Card
         variant="outlined"
         sx={{
-          minWidth: { xs: "93vw", sm: "96vw", md: 620 },
+          width : "100%",
           maxWidth: 620,
           p: { sm: 4 },
         }}
         className={`${styles.cardStyle}`}
       >
+        <Search />
         <Box>
           <Stack
             direction="row"

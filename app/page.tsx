@@ -1,4 +1,3 @@
-import Image from "next/image";
 import WeatherApp from "@/app/components/weatherApp";
 
 export default async function Home() {
