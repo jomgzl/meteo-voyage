@@ -30,6 +30,7 @@ export default function ViewWeather({ name }: ICity) {
       body: JSON.stringify({ name: name }),
     })
       .then((response) => {
+        console.log("This is my response before the data:", response);
         if (response.ok) return response.json();
         else if (response.status === 404) {
           throw new Error("Ville introuvable", {
@@ -52,6 +53,7 @@ export default function ViewWeather({ name }: ICity) {
         }
       })
       .then((data) => {
+        console.log("This is my data: ", data);
         setWeather(data.weather as IWeather);
       })
       .catch((e) => {
