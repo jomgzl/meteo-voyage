@@ -1,17 +1,15 @@
 "use client";
 
-import { ICity } from "@/app/types/city";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "./form.module.scss";
+import { useRouter } from "next/navigation";
 
-interface IProps {
-  setCityUser: (name: ICity["name"]) => void;
-}
+export default function Form() {
+  const router = useRouter();
 
-export default function Form({ setCityUser }: IProps) {
   function handleSubmission(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    setCityUser(e.target.city.value);
+    router.replace(`/?city=${e.target.city.value}`);
   }
 
   return (

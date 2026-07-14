@@ -1,4 +1,5 @@
 import WeatherApp from "@/app/components/weatherApp";
+import { Suspense } from "react";
 
 export default async function Home() {
   const backgroundcolor = {
@@ -8,7 +9,9 @@ export default async function Home() {
 
   return (
     <div style={backgroundcolor}>
-      <WeatherApp />
+      <Suspense>
+        <WeatherApp />
+      </Suspense>
     </div>
   );
 }

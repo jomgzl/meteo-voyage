@@ -9,49 +9,47 @@ interface IProps extends IError {}
 export default function Error({ errorMessage }: IProps) {
   console.log("Erreur:", errorMessage);
   return (
-    <div>
-      <Box>
-        <Stack
-          spacing={3}
+    <Box>
+      <Stack
+        spacing={3}
+        sx={{
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <Box
           sx={{
+            display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
+            backgroundColor: "#e6ebf1",
+            width: 60,
+            height: 60,
+            borderRadius: "100%",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "#e6ebf1",
-              width: 60,
-              height: 60,
-              borderRadius: "100%",
-            }}
-          >
-            {(errorMessage ===
-              "Erreur de récupération de données, vérifiez votre connexion internet." && (
-              <Image
-                src="/cloud-slash.svg"
-                width={25}
-                height={25}
-                alt="Info circle icon"
-              />
-            )) || (
-              <Image
-                src="/info-circle.svg"
-                width={25}
-                height={25}
-                alt="Info circle icon"
-              />
-            )}
-          </Box>
+          {(errorMessage ===
+            "Erreur de récupération de données, vérifiez votre connexion internet." && (
+            <Image
+              src="/cloud-slash.svg"
+              width={25}
+              height={25}
+              alt="Info circle icon"
+            />
+          )) || (
+            <Image
+              src="/info-circle.svg"
+              width={25}
+              height={25}
+              alt="Info circle icon"
+            />
+          )}
+        </Box>
 
-          <Typography variant="h5" sx={{ color: "#1b2530" }}>
-            {errorMessage}
-          </Typography>
-        </Stack>
-      </Box>
-    </div>
+        <Typography variant="h5" sx={{ color: "#1b2530" }}>
+          {errorMessage}
+        </Typography>
+      </Stack>
+    </Box>
   );
 }

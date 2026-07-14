@@ -1,22 +1,16 @@
 "use client";
 
-import { useState, useEffect, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import Form from "@/app/components/form";
 import IntroductionScreen from "@/app/components/introductionScreen";
 import styles from "./weatherApp.module.scss";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Loading from "@/app/components/loading";
 
 export default function WeatherApp() {
   const searchParams = useSearchParams();
-  const [cityUser, setCityUser] = useState(searchParams?.get("city") || "");
-  const router = useRouter();
-  const query = searchParams?.get("city");
+  const cityUser = searchParams?.get("city");
   const ViewWeather = lazy(() => import("@/app/components/viewWeather"));
-
-  useEffect(() => {
-    router.replace(`/?city=${cityUser}`);
-  }, [query, cityUser]);
 
   return (
     <div className="flex flex-col justify-center content-around h-screen">
@@ -27,7 +21,7 @@ export default function WeatherApp() {
           </h1>
         </div>
         <div className="ml-5 mr-5 mt-5 sm:ml-auto sm:mr-auto sm:w-auto sm:mt-0">
-          <Form setCityUser={setCityUser} />
+          <Form/>
         </div>
       </div>
       <div className="flex h-screen w-screen pl-5 pr-5 box-border">
