@@ -1,4 +1,4 @@
-import WeatherApp from "@/app/components/weatherApp";
+import WeatherApp from "@/app/components/weather/weatherApp/weatherApp";
 import { Suspense } from "react";
 
 export default async function Home() {

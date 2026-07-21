@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
-export default function IntroductionScreen() {
+export default function Introduction() {
   return (
     <div>
       <Box>

@@ -1,20 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
+const forecastNumberOfDays: number = 10;
 
-async function getCurrentWeather(city: string) {
+async function getCurrentWeather(city: string, res: NextApiResponse) {
   const data = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiOpenWeather}`,
   );
-  console.log("Data 1: ", data);
+
+  if (!data.ok) {
+    return res
+      .status(data.status)
+      .json({ message: "There was an error with the weather server" });
+  }
   return data.json();
 }
 
-async function getSixteenDaysWeather(city: string) {
+async function getSixteenDaysWeather(city: string, res: NextApiResponse) {
   const data = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiOpenWeather}`,
+    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&lang=fr&cnt=${forecastNumberOfDays}&appid=${apiOpenWeather}`,
   );
-  console.log("Data 2: ", data);
+  if (!data.ok) {
+    return res
+      .status(data.status)
+      .json({ message: "There was an error with the weather server" });
+  }
   return data.json();
 }
 
@@ -25,26 +35,20 @@ export default async function getOpenWeatherData(
   try {
     const city = req.body.name;
 
-    const weatherCurrent = getCurrentWeather(city);
-    const weatherSixteenDays = getSixteenDaysWeather(city);
-
-    console.log("Weather current: ", weatherCurrent);
+    const weatherCurrentAPI = getCurrentWeather(city, res);
+    const weatherSixteenDaysAPI = getSixteenDaysWeather(city, res);
 
     const [weather, weatherSixteen] = await Promise.all([
-      weatherCurrent,
-      weatherSixteenDays,
+      weatherCurrentAPI,
+      weatherSixteenDaysAPI,
     ]);
 
-    console.log("Current weather:", weather);
-    console.log("Weather to 16 days:", weatherSixteen);
+    const [weatherCurrent, ...weatherFifteenDays] = weatherSixteen.list;
 
-    // if (!data.ok) {
-    //   return res
-    //     .status(data.status)
-    //     .json({ message: "There was an error with the weather server" });
-    // }
-
-    res.status(200).json({ weather: weather, weatherSixteen: weatherSixteen });
+    res.status(200).json({
+      weather: weatherCurrent,
+      weatherFifteenDays: weatherFifteenDays,
+    });
   } catch (e) {
     console.error(e);
     res.status(500).send({});

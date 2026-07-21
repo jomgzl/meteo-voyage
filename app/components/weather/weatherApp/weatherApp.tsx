@@ -1,16 +1,13 @@
 "use client";
 
-import { lazy, Suspense } from "react";
-import Form from "@/app/components/form";
-import IntroductionScreen from "@/app/components/introductionScreen";
+import Form from "@/app/components/form/form";
+import IntroductionScreen from "@/app/components/introduction/introduction";
 import styles from "./weatherApp.module.scss";
-import { useSearchParams } from "next/navigation";
-import Loading from "@/app/components/loading";
+import WeatherView from "@/app/components/weather/weatherView/weatherView";
+import useParamCity from "@/app/hooks/useCity";
 
 export default function WeatherApp() {
-  const searchParams = useSearchParams();
-  const cityUser = searchParams?.get("city");
-  const ViewWeather = lazy(() => import("@/app/components/viewWeather"));
+  const city = useParamCity();
 
   return (
     <div className="flex flex-col justify-center content-around h-screen">
@@ -21,16 +18,12 @@ export default function WeatherApp() {
           </h1>
         </div>
         <div className="ml-5 mr-5 mt-5 sm:ml-auto sm:mr-auto sm:w-auto sm:mt-0">
-          <Form/>
+          <Form />
         </div>
       </div>
       <div className="flex h-screen w-screen pl-5 pr-5 box-border">
         <div className="flex justify-center mt-10 w-full sm:mt-0 sm:self-center">
-          <Suspense fallback={<Loading />}>
-            {(!!cityUser && <ViewWeather name={cityUser} />) || (
-              <IntroductionScreen />
-            )}
-          </Suspense>
+          {(!!city && <WeatherView name={city} />) || <IntroductionScreen />}
         </div>
       </div>
     </div>

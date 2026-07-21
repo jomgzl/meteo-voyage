@@ -1,4 +1,4 @@
-import { IError } from "../types/error";
+import { IError } from "@/app/types/error";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
