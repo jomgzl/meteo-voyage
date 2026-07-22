@@ -20,7 +20,7 @@ export default function WeatherFifteenDaysCard({ weatherCurrentDay }) {
       sx={{
         width: "100%",
         maxWidth: 620,
-        p: { sm: 2 },
+        p: 2,
       }}
       className={`${styles.cardStyle}`}
     >

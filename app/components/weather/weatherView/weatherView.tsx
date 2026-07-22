@@ -10,10 +10,13 @@ import WeatherFifteenDaysList from "@/app/components/weather/weatherFifteenDays/
 import WeatherLoading from "@/app/components/weather/weatherLoading/weatherLoading";
 import ErrorComponent from "@/app/components/tools/error/error";
 
+import styles from "./weatherView.module.scss";
+
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 export default function WeatherView({ name }: ICity) {
   const [weather, setWeather] = useState<IWeather>();
@@ -112,13 +115,13 @@ export default function WeatherView({ name }: ICity) {
     );
   if (weather) {
     return (
-      <>
-        {/* <WeatherCurrent name={name} weather={weather} /> */}
+      <div className={`${styles.weatherComponents}`}>
+        <WeatherCurrent name={name} weather={weather} />
         <WeatherFifteenDaysList
           name={name}
           weatherFifteenDays={weatherFifteenDays}
         />
-      </>
+      </div>
     );
   }
   return null;

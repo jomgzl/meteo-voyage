@@ -16,7 +16,7 @@ export default function WeatherFifteenDaysList({ name, weatherFifteenDays }) {
   return (
     <Card
       variant="outlined"
-      sx={{ width: "100%", maxWidth: 620, p: { xs: 4, sm: 4 } }}
+      sx={{ width: "100%", maxWidth: 620, p: { sm: 4 }, pt : { xs: 4 } }}
       className={`${styles.cardStyle}`}
     >
       <Box>
