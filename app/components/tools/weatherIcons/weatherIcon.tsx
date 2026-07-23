@@ -29,12 +29,12 @@ export default function WeatherIcon({ main, id, width, height }: IProps) {
     return (
       <Image
         src="/thunderstorm.svg"
-        width={60}
-        height={60}
+        width={width}
+        height={height} 
         alt="Thunderstorm icon"
       />
     );
   } else if (id >= 701 && id < +781) {
-    return <Image src="/mist.svg" width={60} height={60} alt="Mist icon" />;
+    return <Image src="/mist.svg" width={width} height={height} alt="Mist icon" />;
   } else return null;
 }

@@ -79,10 +79,6 @@ export default function WeatherView({ name }: ICity) {
   };
 
   useEffect(fetchWeather, [name]);
-
-  // if (loading) {
-  //   return <WeatherLoading name={name} weather={weather} />;
-  // }
   if (error)
     return (
       <Card

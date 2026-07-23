@@ -21,8 +21,10 @@ export default function WeatherApp() {
           <Form />
         </div>
       </div>
-      <div className="flex h-screen w-screen pl-5 pr-5 box-border items-center">
-        <div className="flex justify-center mt-10 w-full sm:mt-0">
+      <div
+        className={`flex h-screen w-screen mt-14 pl-5 pr-5 box-border ${city ? "items-start" : "items-center"} `}
+      >
+        <div className="flex justify-center w-full sm:mt-0">
           {(!!city && <WeatherView name={city} />) || <IntroductionScreen />}
         </div>
       </div>
