@@ -22,9 +22,9 @@ export default function WeatherApp() {
         </div>
       </div>
       <div
-        className={`flex h-screen w-screen mt-14 pl-5 pr-5 box-border ${city ? "items-start" : "items-center"} `}
+        className="flex h-screen w-screen mt-14 pl-5 pr-5 box-border"
       >
-        <div className="flex justify-center w-full sm:mt-0">
+        <div className="flex justify-center w-full mt-auto mb-auto">
           {(!!city && <WeatherView name={city} />) || <IntroductionScreen />}
         </div>
       </div>

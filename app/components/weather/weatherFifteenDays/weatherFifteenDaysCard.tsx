@@ -4,7 +4,7 @@ import styles from "./weatherFifteenDaysCard.module.scss";
 
 import WeatherIcon from "@/app/components/tools/weatherIcons/weatherIcon";
 
-import useDate from "@/app/hooks/useDate";
+import day from "@/app/components/tools/dates/day";
 
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 
 export default function WeatherFifteenDaysCard({ weatherCurrentDay }) {
   console.log("In my Fifteen days card component", weatherCurrentDay);
-  const date = useDate(weatherCurrentDay.dt_txt);
+  const date = day(weatherCurrentDay.dt);
   return (
     <Card
       variant="outlined"
