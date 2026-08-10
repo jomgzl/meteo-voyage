@@ -20,7 +20,7 @@ import Stack from "@mui/material/Stack";
 
 export default function WeatherView({ name }: ICity) {
   const [weather, setWeather] = useState<IWeather>();
-  const [weatherFifteenDays, setWeatherFifteenDays] = useState({});
+  const [weatherForecast, setweatherForecast] = useState({});
   const [error, setError] = useState<IError>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -61,7 +61,7 @@ export default function WeatherView({ name }: ICity) {
       })
       .then((data) => {
         setWeather(data.weather as IWeather);
-        setWeatherFifteenDays(data.weatherFifteenDays);
+        setweatherForecast(data.weatherForecast);
       })
       .catch((e) => {
         if (e.cause === "API error") {
@@ -115,7 +115,7 @@ export default function WeatherView({ name }: ICity) {
         <WeatherCurrent name={name} weather={weather} />
         <WeatherFifteenDaysList
           name={name}
-          weatherFifteenDays={weatherFifteenDays}
+          weatherForecast={weatherForecast}
         />
       </div>
     );

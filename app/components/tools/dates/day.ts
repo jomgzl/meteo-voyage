@@ -1,6 +1,6 @@
 const dayjs = require("dayjs");
 
-export default function day(weatherDate) {
+export default function day(weatherDate: number) {
   const weatherCurrentDayNumber = dayjs.unix(weatherDate).date();
   const weatherCurrentDayString = dayjs.unix(weatherDate).format("ddd");
   const currentDayNumber = dayjs().date();

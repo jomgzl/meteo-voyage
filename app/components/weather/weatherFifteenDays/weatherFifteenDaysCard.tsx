@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 export default function WeatherFifteenDaysCard({ weatherCurrentDay }) {
-  console.log("In my Fifteen days card component", weatherCurrentDay);
+  // console.log("In my Fifteen days card component", weatherCurrentDay);
   const date = day(weatherCurrentDay.dt);
   return (
     <Card

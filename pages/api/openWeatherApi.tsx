@@ -1,20 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import {
+  weatherParsing,
+  dataExtractionCurrentWeather,
+} from "@/app/tools/openWeatherApi/dataManipulation";
+import getWeatherForecast from "@/app/tools/openWeatherApi/getWeatherForecast";
 
 const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
-const forecastNumberOfDays: number = 15;
-
-async function getSixteenDaysWeather(city: string, res: NextApiResponse) {
-  const data = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&lang=fr&cnt=${forecastNumberOfDays}&appid=${apiOpenWeather}`,
-  );
-  if (!data.ok) {
-    console.log("STATUT", data.status);
-    return res
-      .status(data.status)
-      .json({ message: "There was an error with the weather server" });
-  }
-  return data.json();
-}
+const forecastNumberOfDays: number = 40;
 
 export default async function getOpenWeatherData(
   req: NextApiRequest,
@@ -22,21 +14,35 @@ export default async function getOpenWeatherData(
 ) {
   try {
     const city = req.body.name;
-    const weatherSixteenDaysAPI = getSixteenDaysWeather(city, res);
 
-    const weatherSixteen = await weatherSixteenDaysAPI;
+    const data = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&lang=fr&cnt=${forecastNumberOfDays}&appid=${apiOpenWeather}`,
+    );
+    if (!data.ok) {
+      console.log("STATUT", data.status);
+      if (data.status === 404) {
+        return res.status(data.status).json({ message: "City not found" });
+      }
+      throw new Error("There was an error with the weather server");
+    }
+    const weatherSixteen = await data.json();
 
-    if(!weatherSixteen) {
-      throw new Error("City name was not found");
+    if (!weatherSixteen) {
+      throw new Error("No data found");
     }
 
-    console.log("WW", weatherSixteen);
+    const weatherFinal = getWeatherForecast(weatherSixteen.list);
 
-    const [weatherCurrent, ...weatherFifteenDays] = weatherSixteen.list;
+    console.log("Weather final: ", weatherFinal);
+
+    const [weatherCurrentRawData, ...weatherForecast] = weatherSixteen.list;
+
+    const weatherCurrent = dataExtractionCurrentWeather(weatherCurrentRawData);
+    const weatherCC = weatherParsing(weatherForecast);
 
     res.status(200).json({
       weather: weatherCurrent,
-      weatherFifteenDays: weatherFifteenDays,
+      weatherForecast: weatherForecast,
     });
   } catch (e) {
     console.error(e);

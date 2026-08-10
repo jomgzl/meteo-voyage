@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { IWeatherCondition } from "@/app/types/weather";
+import { IWeather } from "@/app/types/weather";
 
 interface IProps {
-  main: IWeatherCondition["main"];
-  id: IWeatherCondition["id"];
+  main: IWeather["main"];
+  id: IWeather["id"];
   width: number;
   height: number;
 }

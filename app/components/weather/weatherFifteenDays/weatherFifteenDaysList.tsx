@@ -12,7 +12,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
-export default function WeatherFifteenDaysList({ name, weatherFifteenDays }) {
+export default function WeatherFifteenDaysList({ name, weatherForecast }) {
   return (
     <Card
       variant="outlined"
@@ -28,18 +28,18 @@ export default function WeatherFifteenDaysList({ name, weatherFifteenDays }) {
             variant="h6"
             sx={{ color: "#1b2530", fontWeight: 600, fontSize: 18 }}
           >
-            Prévisions sur {weatherFifteenDays.length} jours
+            Prévisions sur 5 jours
           </Typography>
           <Typography sx={{ color: "#aab3bf" }}>
             {name[0].toUpperCase() + name.slice(1)}
           </Typography>
         </Stack>
 
-        {weatherFifteenDays.map((weatherCurrentDay) => {
+        {weatherForecast.map((weatherCurrentDay) => {
           return (
             <Fragment key={weatherCurrentDay.dt}>
               <WeatherFifteenDaysCard weatherCurrentDay={weatherCurrentDay} />
-              <div>{weatherCurrentDay === weatherFifteenDays.at(-1) ? null : <Divider />}</div>
+              <div>{weatherCurrentDay === weatherForecast.at(-1) ? null : <Divider />}</div>
             </Fragment>
           );
         })}

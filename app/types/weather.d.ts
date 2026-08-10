@@ -1,11 +1,56 @@
 export interface IWeatherCondition {
-  id :number;
-  main :string;
+  id: number;
+  main: string;
   description: string;
 }
 
 export interface IWeather {
-  main: { temp: number; feels_like: number; humidity: number };
+  dt: number;
+  temp: number;
+  feels_like: number;
+  humidity: number;
+  temp_max: number;
+  id: number;
+  main: string;
+  description: string;
+  speed: number;
+}
+
+export interface IWeatherForecast {
+  dt: number;
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  humidity: number;
+  id: number;
+  main: string;
+  description: string;
+  speed: number;
+}
+
+export interface IWeatherAPI {
+  dt: number;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    humidity: number;
+  };
+  weather: [{ id: number; main: string; description: string }];
   wind: { speed: number };
-  weather: IWeatherCondition[];
+}
+
+export interface IWeatherResult {
+  day: number;
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  humidity: number;
+  date: string;
+  main: string;
+  description: string;
+  speed: number;
 }

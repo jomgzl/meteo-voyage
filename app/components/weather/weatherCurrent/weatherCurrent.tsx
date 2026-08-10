@@ -15,6 +15,7 @@ interface IProps {
 }
 
 export default function weatherCurrent({ name, weather }: IProps) {
+  // console.log("Icon", weather);
   return (
     <Card
       variant="outlined"
@@ -34,19 +35,24 @@ export default function weatherCurrent({ name, weather }: IProps) {
           <Typography variant="h5" sx={{ color: "#1b2530" }}>
             {name[0].toUpperCase() + name.slice(1)}
           </Typography>
-          <WeatherIcon width={60} height = {60} {...weather.weather[0]} />
+          <WeatherIcon
+            width={60}
+            height={60}
+            id={weather.id}
+            main={weather.main}
+          />
         </Stack>
       </Box>
 
       <Box>
         <Stack direction="row" spacing={2} sx={{ alignItems: "flex-end" }}>
           <Typography variant="h1" sx={{ color: "#15202b" }}>
-            {Math.round(weather.main.temp)}°c
+            {Math.round(weather.temp)}°c
           </Typography>
           <Typography variant="h6" sx={{ pb: 3, color: "#41566d" }}>
             {" "}
-            {weather.weather[0].description[0].toUpperCase() +
-              weather.weather[0].description.slice(1)}
+            {weather.description[0].toUpperCase() +
+              weather.description.slice(1)}
           </Typography>
         </Stack>
       </Box>
@@ -71,7 +77,7 @@ export default function weatherCurrent({ name, weather }: IProps) {
             <Typography
               sx={{ fontSize: 20, fontWeight: "bold", color: "#1b2530" }}
             >
-              {Math.round(weather.main.feels_like)}°C
+              {Math.round(weather.feels_like)}°C
             </Typography>
           </Stack>
           <Stack sx={{ ml: 2, mr: "auto" }}>
@@ -82,7 +88,7 @@ export default function weatherCurrent({ name, weather }: IProps) {
               sx={{ fontSize: 20, fontWeight: "bold", color: "#1b2530" }}
             >
               {" "}
-              {weather.main.humidity}%
+              {weather.humidity}%
             </Typography>
           </Stack>
           <Stack sx={{ ml: 2, mr: "auto" }}>
@@ -93,7 +99,7 @@ export default function weatherCurrent({ name, weather }: IProps) {
               sx={{ fontSize: 20, fontWeight: "bold", color: "#1b2530" }}
             >
               {" "}
-              {Math.round(weather.wind.speed)} km/h
+              {Math.round(weather.speed)} km/h
             </Typography>
           </Stack>
         </Stack>
