@@ -32,13 +32,9 @@ export default async function getOpenWeatherData(
     }
 
     const weatherFinal = getWeatherForecast(weatherSixteen.list);
-
-    console.log("Weather final: ", weatherFinal);
-
-    const [weatherCurrentRawData, ...weatherForecast] = weatherSixteen.list;
-
-    const weatherCurrent = dataExtractionCurrentWeather(weatherCurrentRawData);
-    const weatherCC = weatherParsing(weatherForecast);
+    
+    const [weatherCurrent, ...weatherForecast] = weatherFinal;
+    
 
     res.status(200).json({
       weather: weatherCurrent,

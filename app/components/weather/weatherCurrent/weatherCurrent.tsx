@@ -15,7 +15,6 @@ interface IProps {
 }
 
 export default function weatherCurrent({ name, weather }: IProps) {
-  // console.log("Icon", weather);
   return (
     <Card
       variant="outlined"

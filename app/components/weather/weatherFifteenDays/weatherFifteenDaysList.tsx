@@ -1,5 +1,8 @@
 "use client";
 
+import { ICity } from "@/app/types/city";
+import { IWeather, IWeatherForecast } from "@/app/types/weather";
+
 import styles from "./weatherFifteenDaysList.module.scss";
 
 import { Fragment } from "react";
@@ -12,11 +15,19 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
-export default function WeatherFifteenDaysList({ name, weatherForecast }) {
+interface IProps {
+  name: ICity["name"];
+  weatherForecast: IWeatherForecast[];
+}
+
+export default function WeatherFifteenDaysList({
+  name,
+  weatherForecast,
+}: IProps) {
   return (
     <Card
       variant="outlined"
-      sx={{ width: "100%", maxWidth: 620, p: { sm: 4 }, pt : { xs: 4 } }}
+      sx={{ width: "100%", maxWidth: 620, p: { sm: 4 }, pt: { xs: 4 } }}
       className={`${styles.cardStyle}`}
     >
       <Box>
@@ -37,9 +48,14 @@ export default function WeatherFifteenDaysList({ name, weatherForecast }) {
 
         {weatherForecast.map((weatherCurrentDay) => {
           return (
-            <Fragment key={weatherCurrentDay.dt}>
-              <WeatherFifteenDaysCard weatherCurrentDay={weatherCurrentDay} />
-              <div>{weatherCurrentDay === weatherForecast.at(-1) ? null : <Divider />}</div>
+            <Fragment key={weatherCurrentDay.date}>
+              <WeatherFifteenDaysCard {...weatherCurrentDay} />
+              {/* <WeatherFifteenDaysCard weatherCurrentDay={weatherCurrentDay} /> */}
+              <div>
+                {weatherCurrentDay === weatherForecast.at(-1) ? null : (
+                  <Divider />
+                )}
+              </div>
             </Fragment>
           );
         })}

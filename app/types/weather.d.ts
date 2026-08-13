@@ -16,19 +16,6 @@ export interface IWeather {
   speed: number;
 }
 
-export interface IWeatherForecast {
-  dt: number;
-  temp: number;
-  feels_like: number;
-  temp_min: number;
-  temp_max: number;
-  humidity: number;
-  id: number;
-  main: string;
-  description: string;
-  speed: number;
-}
-
 export interface IWeatherAPI {
   dt: number;
   main: {
@@ -42,8 +29,10 @@ export interface IWeatherAPI {
   wind: { speed: number };
 }
 
-export interface IWeatherResult {
+export interface IWeatherForecast {
+  id: number;
   day: number;
+  dayString: string,
   temp: number;
   feels_like: number;
   temp_min: number;
