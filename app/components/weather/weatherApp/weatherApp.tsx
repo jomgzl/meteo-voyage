@@ -3,7 +3,7 @@
 import Form from "@/app/components/form/form";
 import IntroductionScreen from "@/app/components/introduction/introduction";
 import styles from "./weatherApp.module.scss";
-import WeatherView from "@/app/components/weather/weatherView/weatherView";
+import WeatherFetch from "@/app/components/weather/weatherFetch/weatherFetch";
 import useParamCity from "@/app/hooks/useCity";
 
 export default function WeatherApp() {
@@ -25,7 +25,7 @@ export default function WeatherApp() {
         className="flex h-screen w-screen mt-14 pl-5 pr-5 box-border"
       >
         <div className="flex justify-center w-full mt-auto mb-auto">
-          {(!!city && <WeatherView name={city} />) || <IntroductionScreen />}
+          {(!!city && <WeatherFetch name={city} />) || <IntroductionScreen />}
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { IWeatherForecast } from "@/app/types/weather";
 
-import styles from "./weatherFifteenDaysCard.module.scss";
+import styles from "./weatherForecastCard.module.scss";
 
 import WeatherIcon from "@/app/components/tools/weatherIcons/weatherIcon";
 
@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-export default function WeatherFifteenDaysCard({
+export default function WeatherForecastCard({
   id,
   dayString,
   main,
@@ -54,7 +54,7 @@ export default function WeatherFifteenDaysCard({
   );
 }
 
-// export default function WeatherFifteenDaysCard( {weatherCurrentDay} : IWeatherForecast) {
+// export default function WeatherForecastCard( {weatherCurrentDay} : IWeatherForecast) {
 //   // console.log("In my Fifteen days card component", weatherCurrentDay);
 //   return (
 //     <Card

@@ -5,7 +5,6 @@ export interface IWeatherCondition {
 }
 
 export interface IWeather {
-  dt: number;
   temp: number;
   feels_like: number;
   humidity: number;

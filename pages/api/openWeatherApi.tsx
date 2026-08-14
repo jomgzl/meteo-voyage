@@ -1,8 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {
-  weatherParsing,
-  dataExtractionCurrentWeather,
-} from "@/app/tools/openWeatherApi/dataManipulation";
 import getWeatherForecast from "@/app/tools/openWeatherApi/getWeatherForecast";
 
 const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
@@ -32,15 +28,13 @@ export default async function getOpenWeatherData(
     }
 
     const weatherFinal = getWeatherForecast(weatherSixteen.list);
-    
-    const [weatherCurrent, ...weatherForecast] = weatherFinal;
-    
 
-    res.status(200).json({
-      weather: weatherCurrent,
-      weatherForecast: weatherForecast,
+    const [weatherCurrent, ...weatherForecast] = weatherFinal;
+
+      res.status(200).json({
+      weather: weatherFinal,
     });
-  } catch (e) {
+    } catch (e) {
     console.error(e);
     res.status(500).send({});
   }

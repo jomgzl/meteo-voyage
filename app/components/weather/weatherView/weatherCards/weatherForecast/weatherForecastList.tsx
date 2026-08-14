@@ -3,11 +3,11 @@
 import { ICity } from "@/app/types/city";
 import { IWeather, IWeatherForecast } from "@/app/types/weather";
 
-import styles from "./weatherFifteenDaysList.module.scss";
+import styles from "./weatherForecastList.module.scss";
 
 import { Fragment } from "react";
 
-import WeatherFifteenDaysCard from "@/app/components/weather/weatherFifteenDays/weatherFifteenDaysCard";
+import WeatherFifteenDaysCard from "@/app/components/weather/weatherView/weatherCards/weatherForecast/weatherForecastCard";
 
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -18,11 +18,13 @@ import Divider from "@mui/material/Divider";
 interface IProps {
   name: ICity["name"];
   weatherForecast: IWeatherForecast[];
+  loading: boolean;
 }
 
 export default function WeatherFifteenDaysList({
   name,
   weatherForecast,
+  loading,
 }: IProps) {
   return (
     <Card

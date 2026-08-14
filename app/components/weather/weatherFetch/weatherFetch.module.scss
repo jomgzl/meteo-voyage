@@ -1,0 +1,18 @@
+.weatherComponents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    gap: 40px;
+}
+
+.cardStyle {
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    gap: 40px;
+    filter: blur(1rem) !important;
+}
