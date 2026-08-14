@@ -16,7 +16,6 @@ interface IProps {
 }
 
 export default function weatherCurrent({ name, weather, loading }: IProps) {
-  console.log("eeeee", loading);
   return (
     <Card
       variant="outlined"
@@ -25,8 +24,7 @@ export default function weatherCurrent({ name, weather, loading }: IProps) {
         maxWidth: 620,
         p: { sm: 4 },
       }}
-      // className={`${loading === true} ? ${styles.cardStyle} : ${styles.cardStyle}`}
-      className={`${styles.cardStyle}`}
+      className={`${loading ? styles.cardStyleBlur : styles.cardStyle}`}
     >
       <Box>
         <Stack

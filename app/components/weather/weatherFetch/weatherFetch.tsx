@@ -17,14 +17,12 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 export default function WeatherFetch({ name }: ICity) {
-  const [weather, setWeather] = useState<IWeather>();
   const [weatherForecast, setweatherForecast] = useState<IWeatherForecast[]>();
   const [error, setError] = useState<IError>();
   const [loading, setLoading] = useState<boolean>(true);
 
-
   const fetchWeather = () => {
-    setWeather(undefined);
+    setweatherForecast(undefined);
     setError(undefined);
     setLoading(true);
     fetch("/api/openWeatherApi", {
@@ -49,7 +47,6 @@ export default function WeatherFetch({ name }: ICity) {
             },
           );
         } else {
-          console.log("I am here");
           throw new Error(
             "Erreur de récupération de données, vérifiez votre connexion internet.",
             {
@@ -109,17 +106,20 @@ export default function WeatherFetch({ name }: ICity) {
     );
   if (loading) {
     return (
-      <div className={`${styles.weatherComponents}`}>
+      <div className={`${styles.weatherData}`}>
         <WeatherDataLoading name={name} loading={loading} />
       </div>
     );
   }
   if (weatherForecast) {
-    console.log("In WeatherFetch: ", loading)
+    console.log("In WeatherFetch: ", loading);
     return (
-      // <div className= {`${loading === true} ? ${styles.cardStyle} : ${styles.weatherComponents}`}>
-      <div className= {`${styles.weatherComponents}`}>
-        <WeatherDataLoaded name={name} weather={weatherForecast} loading={loading} />
+      <div className={`${styles.weatherData}`}>
+        <WeatherDataLoaded
+          name={name}
+          weather={weatherForecast}
+          loading={loading}
+        />
       </div>
     );
   }

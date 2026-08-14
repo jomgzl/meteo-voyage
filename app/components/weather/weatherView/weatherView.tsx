@@ -15,7 +15,6 @@ interface IProps {
 
 export default function WeatherView({ name, weather, loading }: IProps) {
   const [weatherCurrent, ...weatherForecast] = weather;
-  console.log(weather);
   return (
     <Fragment>
       <WeatherCurrent name={name} weather={weatherCurrent} loading={loading} />
