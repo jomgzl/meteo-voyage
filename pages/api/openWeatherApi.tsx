@@ -29,12 +29,10 @@ export default async function getOpenWeatherData(
 
     const weatherFinal = getWeatherForecast(weatherSixteen.list);
 
-    const [weatherCurrent, ...weatherForecast] = weatherFinal;
-
-      res.status(200).json({
+    res.status(200).json({
       weather: weatherFinal,
     });
-    } catch (e) {
+  } catch (e) {
     console.error(e);
     res.status(500).send({});
   }
