@@ -1,7 +1,9 @@
 "use client";
 
 import { ICity } from "@/app/types/city";
-import { IWeather, IWeatherForecast } from "@/app/types/weather";
+import { IWeatherForecast } from "@/app/types/weather";
+
+import envVariableStringToNumber from "@/app/tools/envVariable/envVariableStringToNumber";
 
 import styles from "./weatherForecastList.module.scss";
 
@@ -26,6 +28,38 @@ export default function WeatherFifteenDaysList({
   weatherForecast,
   loading,
 }: IProps) {
+  const forecastTotalNumberOfInstances = envVariableStringToNumber(
+    process.env.NEXT_PUBLIC_ENV_FORECAST_TOTAL_NUMBER_OF_INSTANCES,
+  );
+
+  const forectCastDailyNumberOfInstances = envVariableStringToNumber(
+    process.env.NEXT_PUBLIC_ENV_FORECAST_NUMBER_OF_DAILY_INSTANCES,
+  );
+
+  const forecastNumberOfDaysValidated = (
+    forecastTotalNumberOfInstances: number | undefined,
+    forectCastDailyNumberOfInstances: number | undefined,
+  ) => {
+    try {
+      if (forecastTotalNumberOfInstances && forectCastDailyNumberOfInstances) {
+        return (
+          forecastTotalNumberOfInstances / forectCastDailyNumberOfInstances - 1
+        );
+      } else {
+        throw new Error(
+          "There was a problem with one or both environement variables",
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const forecastNumberOfDays = forecastNumberOfDaysValidated(
+    forecastTotalNumberOfInstances,
+    forectCastDailyNumberOfInstances,
+  );
+
   return (
     <Card
       variant="outlined"
@@ -41,7 +75,8 @@ export default function WeatherFifteenDaysList({
             variant="h6"
             sx={{ color: "#1b2530", fontWeight: 600, fontSize: 18 }}
           >
-            Prévisions sur 5 jours
+            Prévisions sur {forecastNumberOfDays} jours
+            {/* Prévisions sur 4 jours */}
           </Typography>
           <Typography sx={{ color: "#aab3bf" }}>
             {name[0].toUpperCase() + name.slice(1)}

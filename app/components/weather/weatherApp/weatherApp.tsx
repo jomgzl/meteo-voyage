@@ -6,28 +6,31 @@ import styles from "./weatherApp.module.scss";
 import WeatherFetch from "@/app/components/weather/weatherFetch/weatherFetch";
 import useParamCity from "@/app/hooks/useCity";
 
+import { ThemeProvider } from "@mui/material/styles";
+import appTheme from "@/theme";
+
 export default function WeatherApp() {
   const city = useParamCity();
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="flex flex-col mt-5 sm:flex-row sm:items-center sm:mt-10">
-        <div className="ml-5 sm:ml-auto sm:mr-auto">
-          <h1 className={`${styles.bullet} text-[22px] text-[#15202b]`}>
-            Meteo Voyage
-          </h1>
+    <ThemeProvider theme={appTheme}>
+      <div className="flex flex-col h-screen dark">
+        <div className="flex flex-col mt-5 sm:flex-row sm:items-center sm:mt-10">
+          <div className="ml-5 sm:ml-auto sm:mr-auto">
+            <h1 className={`${styles.bullet} text-[22px] text-[#15202b]`}>
+              Meteo Voyage
+            </h1>
+          </div>
+          <div className="ml-5 mr-5 mt-5 sm:ml-auto sm:mr-auto sm:mt-0 dark:text-[#9aa4b0]">
+            <Form />
+          </div>
         </div>
-        <div className="ml-5 mr-5 mt-5 sm:ml-auto sm:mr-auto sm:mt-0">
-          <Form />
+        <div className="flex h-screen w-full mt-14 pl-5 pr-5 box-border">
+          <div className="flex justify-center w-full mt-auto mb-auto">
+            {(!!city && <WeatherFetch name={city} />) || <IntroductionScreen />}
+          </div>
         </div>
       </div>
-      <div
-        className="flex h-screen w-full mt-14 pl-5 pr-5 box-border"
-      >
-        <div className="flex justify-center w-full mt-auto mb-auto">
-          {(!!city && <WeatherFetch name={city} />) || <IntroductionScreen />}
-        </div>
-      </div>
-    </div>
+    </ThemeProvider>
   );
 }
