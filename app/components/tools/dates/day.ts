@@ -1,4 +1,5 @@
 const dayjs = require("dayjs");
+require("dayjs/plugin/utc");
 require("dayjs/locale/fr");
 
 export default function day(weatherDate: number) {

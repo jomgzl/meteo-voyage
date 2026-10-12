@@ -14,18 +14,16 @@ This is a weather forecast app. It allows the user to get the weather of any cit
 * **Geolocation:** Display weather forecast according to the user's location
 
 ## Getting started
-git clone https://github.com/jomgzl/meteo-voyage.git
-cd meteo-voyage
+git clone https://github.com/jomgzl/meteo-voyage.git <br>
+cd meteo-voyage <br>
 npm install
 
-Create a .env file in the project root:
-
-OPENWEATHER_API_KEY=your_api_key_here
+Create a .env file in the project root: <br>
+OPENWEATHER_API_KEY=your_api_key_here <br>
 Get a free key at openweathermap.org/api.
 
-Then run the dev server:
-
-npm run dev
+Then run the dev server: <br>
+npm run dev <br>
 The app runs at http://localhost:3000.
 
 ## Deployment

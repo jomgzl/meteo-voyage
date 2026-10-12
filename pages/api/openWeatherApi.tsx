@@ -1,8 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import envVariableStringToNumber from "@/app/tools/envVariable/envVariableStringToNumber";
 import getWeatherForecast from "@/app/tools/openWeatherApi/getWeatherForecast";
 
 const apiOpenWeather: string | undefined = process.env.API_OPENWEATHER;
-const forecastNumberOfDays: number = 40;
+
+const forecastNumberOfInstances: number | undefined = parseInt(
+  process.env.NEXT_PUBLIC_ENV_FORECAST_TOTAL_NUMBER_OF_INSTANCES!,
+);
 
 export default async function getOpenWeatherData(
   req: NextApiRequest,
@@ -12,10 +16,9 @@ export default async function getOpenWeatherData(
     const city = req.body.name;
 
     const data = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&lang=fr&cnt=${forecastNumberOfDays}&appid=${apiOpenWeather}`,
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&lang=fr&cnt=${forecastNumberOfInstances}&appid=${apiOpenWeather}`,
     );
     if (!data.ok) {
-      console.log("STATUT", data.status);
       if (data.status === 404) {
         return res.status(data.status).json({ message: "City not found" });
       }
@@ -26,6 +29,8 @@ export default async function getOpenWeatherData(
     if (!weatherSixteen) {
       throw new Error("No data found");
     }
+
+    console.log("WEATHER", weatherSixteen)
 
     const weatherFinal = getWeatherForecast(weatherSixteen.list);
 

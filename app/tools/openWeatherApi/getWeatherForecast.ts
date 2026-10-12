@@ -2,6 +2,9 @@ import { IWeatherAPI, IWeatherForecast } from "@/app/types/weather";
 import day from "@/app/components/tools/dates/day";
 
 const dayjs = require("dayjs");
+var utc = require("dayjs/plugin/utc");
+
+dayjs.extend(utc);
 
 const getWeatherForecast = (weatherList: IWeatherAPI[]): IWeatherForecast[] => {
   const result: IWeatherForecast[] = [];
