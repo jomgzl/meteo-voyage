@@ -7,9 +7,8 @@ import WeatherView from "@/app/components/weather/weatherView/weatherView";
 interface IProps {
   name: ICity["name"];
   weather: IWeatherForecast[];
-  loading: boolean;
 }
 
-export default function WeatherDataLoading({ name, weather, loading }: IProps) {
-  return <WeatherView name={name} weather={weather} loading={loading} />;
+export default function WeatherDataLoading({ name, weather }: IProps) {
+  return <WeatherView name={name} weather={weather} loading={false} />;
 }

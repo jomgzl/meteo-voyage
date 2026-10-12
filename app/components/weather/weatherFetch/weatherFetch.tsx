@@ -107,19 +107,14 @@ export default function WeatherFetch({ name }: ICity) {
   if (loading) {
     return (
       <div className={`${styles.weatherData}`}>
-        <WeatherDataLoading name={name} loading={loading} />
+        <WeatherDataLoading name={name} />
       </div>
     );
   }
   if (weatherForecast) {
-    console.log("In WeatherFetch: ", loading);
     return (
       <div className={`${styles.weatherData}`}>
-        <WeatherDataLoaded
-          name={name}
-          weather={weatherForecast}
-          loading={loading}
-        />
+        <WeatherDataLoaded name={name} weather={weatherForecast} />
       </div>
     );
   }

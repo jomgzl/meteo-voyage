@@ -7,7 +7,6 @@ import WeatherView from "@/app/components/weather/weatherView/weatherView";
 
 interface IProps {
   name: ICity["name"];
-  loading: boolean;
 }
 
 const weatherLoadingList: IWeatherForecast[] = [];
@@ -35,8 +34,8 @@ for (let i = 0; i < 5; i++) {
   weatherLoadingList.push(weatherLoading);
 }
 
-export default function WeatherDataLoading({ name, loading }: IProps) {
+export default function WeatherDataLoading({ name }: IProps) {
   return (
-    <WeatherView name={name} weather={weatherLoadingList} loading={loading} />
+    <WeatherView name={name} weather={weatherLoadingList} loading={true} />
   );
 }

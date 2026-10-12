@@ -52,7 +52,6 @@ export default function WeatherFifteenDaysList({
           return (
             <Fragment key={weatherCurrentDay.date}>
               <WeatherFifteenDaysCard {...weatherCurrentDay} />
-              {/* <WeatherFifteenDaysCard weatherCurrentDay={weatherCurrentDay} /> */}
               <div>
                 {weatherCurrentDay === weatherForecast.at(-1) ? null : (
                   <Divider />

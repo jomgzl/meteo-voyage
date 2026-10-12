@@ -23,7 +23,6 @@ export default function WeatherView({ name, weather, loading }: IProps) {
         weatherForecast={weatherForecast}
         loading={loading}
       />
-      ;
     </Fragment>
   );
 }

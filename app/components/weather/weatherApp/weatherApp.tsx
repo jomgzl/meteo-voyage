@@ -22,7 +22,7 @@ export default function WeatherApp() {
         </div>
       </div>
       <div
-        className="flex h-screen w-screen mt-14 pl-5 pr-5 box-border"
+        className="flex h-screen w-full mt-14 pl-5 pr-5 box-border"
       >
         <div className="flex justify-center w-full mt-auto mb-auto">
           {(!!city && <WeatherFetch name={city} />) || <IntroductionScreen />}
