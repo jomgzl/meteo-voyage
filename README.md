@@ -20,8 +20,8 @@ npm install
 
 Create a .env file in the project root: <br>
 OPENWEATHER_API_KEY=your_api_key_here <br>
-Get a free key at openweathermap.org/api.
-NEXT_PUBLIC_ENV_FORECAST_TOTAL_NUMBER_OF_INSTANCES=40
+Get a free key at openweathermap.org/api. <br>
+NEXT_PUBLIC_ENV_FORECAST_TOTAL_NUMBER_OF_INSTANCES=40 <br>
 NEXT_PUBLIC_ENV_FORECAST_NUMBER_OF_DAILY_INSTANCES=8
 
 Then run the dev server: <br>
