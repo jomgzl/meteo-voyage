@@ -22,6 +22,7 @@ export default async function getOpenWeatherData(
       if (data.status === 404) {
         return res.status(data.status).json({ message: "City not found" });
       }
+      console.error(data);
       throw new Error("There was an error with the weather server");
     }
     const weatherSixteen = await data.json();
@@ -30,7 +31,7 @@ export default async function getOpenWeatherData(
       throw new Error("No data found");
     }
 
-    console.log("WEATHER", weatherSixteen)
+    console.log("WEATHER", weatherSixteen);
 
     const weatherFinal = getWeatherForecast(weatherSixteen.list);
 
